@@ -1,0 +1,1 @@
+﻿{$= i i * @sin "aaa	a\naa\\aa\"aa0.000" @decfmt $}

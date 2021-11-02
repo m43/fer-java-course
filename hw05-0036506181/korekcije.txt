@@ -1,0 +1,42 @@
+################################################
+	1. Recenzent: Beš, Branimir (0036509482)
+
+Kolega, u projektu nisam ostavio target direktorij, nešto si pobrkao?
+Popravio "Za query jmbag = "0000000003" AND lastName LIKE "B*" padaš na minimalnim uvjetima."
+################################################
+	2. Recenzent: Bićanić, Miroslav (0036506059)
+
+Kolega, VELIKO HVALA na iscrpnoj recenziji!
+
+PRVI ZADATAK
+Dodao sam sav javadoc
+TurtleState - copy ne koristi suvušni konstruktor, suvišni konstruktor maknut
+TurtleState - maknuo nepotrebno main metodu
+LSystemBuilderImpl - maknuo suvišne konstante i konstrutor
+LSystemBuilderImpl - nije LSystemInner više public
+LSystemInner - maknuo suvišnu instance varijablu context
+LSystemBuilderImplTest - maknuo suvišne testove
+LSystemBuilderImpl.configureFromText - dodao sam try catch oko swithca za netocan broj argumenata (ArrayIndexOutOfBoundsException)
+
+DRUGI ZADATAK
+QueryParser - popravio direktne upite da rede
+StudentRecord - popravio da razdvaja unesenu liniju sa studentom po tabu
+IComparisonOperator, IFilter - maknuo suvišni public iz interfacea
+ConditionalExpression - popravio malformed param u javadocu
+DatabaseFormatter + dodao static na prigodna mjesta, kao što si savjetovao 
+Lexer - nepotrebnu metodu returnStringAndIncrementCounter koja zamjenjuje dvije linije koda sam maknuo
+Hvala na ostalim savjetima za lexer, lijepo si objasnio s onim pseudokodom! Ostavio sam ipak ostatak lexera nepromijenjen kako je već u potpunosti funkcionalan, ali pripazit ću ubuduće da pri pisanju lexera imam sve te stvari na umu.
+################################################
+	3. Recenzent: Bilić, Bartol (0036507381)
+
+1. zadatak
+Dodao sam javadoc svugdje
+LSystemInner - nije više public
+LSystemInner - nema više instancu Contexta
+TurtleState - maknuo main
+TurtleState - popravio copy
+
+2. zadatak
+FieldValueGetters - maknuo suvišne zagrade kod lambda izraza da ljepše izgleda
+QueryParser - radi normalno za direktne
+################################################

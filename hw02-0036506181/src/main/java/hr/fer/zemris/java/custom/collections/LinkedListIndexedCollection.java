@@ -1,0 +1,290 @@
+package hr.fer.zemris.java.custom.collections;
+
+import java.util.Arrays;
+import java.util.Objects;
+
+/**
+ * Class stores elements in a linked list like structure not visible to client.
+ * The general contract of this collection is that duplicate elements are
+ * allowed (each of those elements will be held in different list node) and
+ * storage of null references are not allowed. The class provides the
+ * functionality of accessing elements, searching, removing in linear time
+ * complexity and adding in constant time.
+ * 
+ * @author Frano
+ */
+
+public class LinkedListIndexedCollection extends Collection {
+
+	/**
+	 * Class to be used to store node of constructed structure in collection
+	 * 
+	 * @author Frano
+	 *
+	 */
+	private static class ListNode {
+		/**
+		 * Reference to previous element
+		 */
+		public ListNode previous;
+		/**
+		 * Reference to next element
+		 */
+		public ListNode next;
+
+		/**
+		 * Value of stored object in node
+		 */
+		public Object value;
+
+		/**
+		 * Basic node constructor initializing the value of stored object right away
+		 * 
+		 * @param value the value to be stored in the node
+		 */
+		public ListNode(Object value) {
+			this.value = value;
+		}
+	}
+
+	/**
+	 * The current size of collection aka number of elements actually stored aka
+	 * number of elements in linked list
+	 */
+	private int size;
+
+	/**
+	 * Reference to the first node of the linked list,
+	 */
+	private ListNode first;
+
+	/**
+	 * Reference to the last node of the linked list.
+	 */
+	private ListNode last;
+
+	/**
+	 * Constructor to initialize an empty linked list structure
+	 */
+	public LinkedListIndexedCollection() {
+		// first=last=null is done automatically in java
+	}
+
+	/**
+	 * Constructor to add all elements of given structure right away to created
+	 * structure
+	 * 
+	 * @param other Collection to copy elements from
+	 * @throws NullPointerException if given collection is a null reference
+	 */
+	public LinkedListIndexedCollection(Collection other) {
+		if (other == null) {
+			throw new NullPointerException();
+		}
+
+		addAll(other);
+	}
+
+	@Override
+	/**
+	 * Method to return current number of elements stored in the collection
+	 */
+	public int size() {
+		return size;
+	}
+
+	@Override
+	/**
+	 * Adds the given object into this collection at the end of the collection;
+	 * newly added element becomes the element at the biggest index. Done in
+	 * complexity O(1). The method refuses to add null as element
+	 * 
+	 * @param value Object to add into collection
+	 * @throws NullPointerException if given value is a null reference
+	 */
+	public void add(Object value) {
+		Objects.requireNonNull(value);
+
+		ListNode newNode = new ListNode(value);
+		if (size == 0) {
+			first = last = newNode;
+		} else {
+			last.next = newNode;
+			newNode.previous = last;
+			last = newNode;
+		}
+		size++;
+	}
+
+	// just a help method
+	/**
+	 * Return the object with given index in linear complexity. A valid index is in
+	 * range [0, size-1]
+	 * 
+	 * @param index the index of the object that is being asked for
+	 * @return the reference to the object that is being looked up
+	 * @throws IndexOutOfBoundsException if given invalid index
+	 */
+	private ListNode nodeAtIndex(int index) {
+		if (index < 0 || index >= size()) {
+			throw new IndexOutOfBoundsException();
+		}
+
+		ListNode startNode;
+		if (index <= size() / 2) {
+			startNode = first;
+			for (int i = 0; i != index; i++) {
+				startNode = startNode.next;
+			}
+		} else {
+			startNode = last;
+			for (int i = size() - 1; i != index; i--) {
+				startNode = startNode.previous;
+			}
+		}
+		return startNode;
+	}
+
+	/**
+	 * Inserts (does not overwrite) the given value at the given position in
+	 * linked-list in linear complexity. Elements starting from this position are
+	 * shifted one position. The legal positions are 0 to size.
+	 * 
+	 * @param value    the element to be inserted
+	 * @param position the position for the element to be inserted at
+	 * @throws NullPointerException      if given value is a null reference
+	 * @throws IndexOutOfBoundsException if given an invalid position
+	 */
+	public void insert(Object value, int position) {
+		Objects.requireNonNull(value);
+
+		if (position < 0 || position > size()) {
+			throw new IndexOutOfBoundsException();
+		}
+		if (position == size()) {
+			add(value);
+			return;
+		}
+
+		ListNode nodeAtPosition = nodeAtIndex(position);
+
+		ListNode newNode = new ListNode(value);
+		if (position == 0) {
+			first = newNode;
+		}
+
+		newNode.previous = nodeAtPosition.previous;
+		newNode.next = nodeAtPosition;
+
+		if (nodeAtPosition.previous != null) {
+			nodeAtPosition.previous.next = newNode;
+		}
+		nodeAtPosition.previous = newNode;
+
+		size++;
+	}
+
+	/**
+	 * Returns the object that is stored in th linked list at position index in
+	 * linear time complexity. Valid indexes are 0 to size-1.
+	 * 
+	 * @param index of element that is being looked up
+	 * @return the value stored at element with given index
+	 * @throws IndexOutOfBoundsException if invalid index given
+	 */
+	public Object get(int index) {
+		if (index < 0 || index >= size()) {
+			throw new IndexOutOfBoundsException();
+		}
+
+		return nodeAtIndex(index).value;
+	}
+
+	/**
+	 * Searches the collection in linear complexity and returns the index of the
+	 * first occurrence of the given value or -1 if the value is not found. null is
+	 * a valid argument. The equality is determined using the equals method.
+	 * 
+	 * @param value of the searched element
+	 * @return the index of the element if found, -1 otherwise
+	 */
+	public int indexOf(Object value) {
+		if (value == null) {
+			return -1;
+		}
+
+		ListNode iteratingNode = first;
+		for (int i = 0; i < size(); i++) {
+			if (iteratingNode.value.equals(value)) {
+				return i;
+			}
+			iteratingNode = iteratingNode.next;
+		}
+
+		return -1;
+	}
+
+	@Override
+	/**
+	 * {@inheritDoc} The search is done in O(n).
+	 */
+	public boolean contains(Object value) {
+		return indexOf(value) >= 0;
+	}
+
+	@Override
+	public void forEach(Processor processor) {
+		for (ListNode node = first; node != null; node = node.next) {
+			processor.process(node.value);
+		}
+	}
+
+	/**
+	 * {@inheritDoc} Operation done in linear complexity.
+	 */
+	public Object[] toArray() {
+		Object[] newArray = new Object[size()];
+
+		int i = 0;
+		for (ListNode node = first; node != null; node = node.next) {
+			newArray[i++] = node.value;
+		}
+		return Arrays.copyOf(newArray, size());
+	}
+
+	/**
+	 * Removes element at specified index from collection in linear complexity.
+	 * Element that was previously at location index+1 after this operation is on
+	 * location index, etc. Legal indexes are 0 to size-1.
+	 * 
+	 * @param index the element that needs to be removed from collection
+	 * @throws IndexOutOfBoundsException if invalid index given
+	 */
+	public void remove(int index) {
+		ListNode removedNode = nodeAtIndex(index);
+
+		if (index == 0) {
+			first = removedNode.next;
+		}
+
+		if (index == size() - 1) {
+			last = removedNode.previous;
+		}
+
+		if (removedNode.previous != null) {
+			removedNode.previous.next = removedNode.next;
+		}
+		if (removedNode.next != null) {
+			removedNode.next.previous = removedNode.previous;
+		}
+		size--;
+	}
+
+	/**
+	 * Removes all elements from the collection in linear time complexity
+	 */
+	public void clear() {
+		first = last = null;
+		size = 0;
+	}
+}

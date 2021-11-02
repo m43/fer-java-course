@@ -1,0 +1,270 @@
+{$= "text/html" @setMimeType $}
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="UTF-8">        
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+
+      <link rel='stylesheet' href='https://s3-us-west-2.amazonaws.com/s.cdpn.io/183516/gilroy-webfont.css'>
+
+        <title>Hola!</title>
+
+
+
+        <script>
+            var $menu = $('.Menu-list'),
+                $item = $('.Menu-list-item'),
+                w = $(window).width(),
+                h = $(window).height();
+
+            $(window).on('mousemove', function(e) {
+            var offsetX = 0.5 - e.pageX / w,
+                offsetY = 0.5 - e.pageY / h,
+                dy = e.pageY - h / 2,
+                dx = e.pageX - w / 2, 
+                theta = Math.atan2(dy, dx),
+                angle = theta * 180 / Math.PI - 90,
+                offsetPoster = $menu.data('offset'),
+                transformPoster = 'translate3d(0, ' + -offsetX * offsetPoster + 'px, 0) rotateX(' + (-offsetY * offsetPoster) + 'deg) rotateY(' + (offsetX * (offsetPoster * 2)) + 'deg)';
+
+            if (angle < 0) {
+                angle = angle + 360;
+            }
+
+            $menu.css('transform', transformPoster);
+
+            $item.each(function() {
+                var $this = $(this),
+                    offsetLayer = $this.data('offset') || 0,
+                    transformLayer = 'translate3d(' + offsetX * offsetLayer + 'px, ' + offsetY * offsetLayer + 'px, 20px)';
+
+                $this.css('transform', transformLayer);
+            });
+            });
+        </script>
+        <style>
+
+
+           body {
+                font-family: "Gilroy ExtraBold", system-ui, sans-serif;
+                font-style: normal;
+                font-weight: normal;
+                -webkit-font-smoothing: antialiased;
+                -webkit-font-kerning: normal;
+                -webkit-text-size-adjust: 100%;
+            }
+
+            html,
+            body {
+                width: 100vw;
+                height: 100vh;
+            }
+
+            body {
+                background: linear-gradient(45deg, #02001F, #1F1B4E);
+                -webkit-transform-style: preserve-3d;
+                        transform-style: preserve-3d;
+                -webkit-transform: perspective(60rem);
+                        transform: perspective(60rem);
+                position: fixed;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .Menu-list {
+                font-size: 4.25rem;
+                line-height: 1.2;
+                text-transform: uppercase;
+                text-align: center;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                -webkit-transform: rotateX(-10deg) rotateY(20deg);
+                        transform: rotateX(-10deg) rotateY(20deg);
+            }
+
+            .Menu-list-item {
+                position: relative;
+                color: transparent;
+                cursor: pointer;
+            }
+            .Menu-list-item::before {
+                content: '';
+                display: block;
+                position: absolute;
+                top: 49%;
+                left: -10%;
+                right: -10%;
+                height: 4px;
+                border-radius: 4px;
+                margin-top: -2px;
+                background: #FF2C75;
+                -webkit-transform: scale(0);
+                        transform: scale(0);
+                transition: -webkit-transform 0.8s cubic-bezier(0.16, 1.08, 0.38, 0.98);
+                transition: transform 0.8s cubic-bezier(0.16, 1.08, 0.38, 0.98);
+                transition: transform 0.8s cubic-bezier(0.16, 1.08, 0.38, 0.98), -webkit-transform 0.8s cubic-bezier(0.16, 1.08, 0.38, 0.98);
+                z-index: 1;
+            }
+
+            .Mask {
+            display: block;
+            position: absolute;
+            overflow: hidden;
+            color: #FF2C75;
+            top: 0;
+            height: 49%;
+            transition: all 0.8s cubic-bezier(0.16, 1.08, 0.38, 0.98);
+            }
+            .Mask span {
+            display: block;
+            }
+
+            .Mask + .Mask {
+            top: 48.9%;
+            height: 51.1%;
+            }
+            .Mask + .Mask span {
+            -webkit-transform: translateY(-49%);
+                    transform: translateY(-49%);
+            }
+
+            .Menu-list-item:hover .Mask,
+            .Menu-list-item:active .Mask {
+            color: #FFF;
+            -webkit-transform: skewX(12deg) translateX(5px);
+                    transform: skewX(12deg) translateX(5px);
+            }
+            .Menu-list-item:hover .Mask + .Mask,
+            .Menu-list-item:active .Mask + .Mask {
+            -webkit-transform: skewX(12deg) translateX(-5px);
+                    transform: skewX(12deg) translateX(-5px);
+            }
+            .Menu-list-item:hover::before,
+            .Menu-list-item:active::before {
+            -webkit-transform: scale(1);
+                    transform: scale(1);
+            }
+
+            a {
+                color: inherit; /* blue colors for links too */
+                text-decoration: inherit; /* no underline */
+            }
+
+            h1 {
+                font-size: 24px;
+                color: #FF2C75;;
+            }
+
+
+            select {
+                -webkit-appearance: none; 
+                -moz-appearance: none;
+                appearance: none;
+             }
+
+            .styled select {
+                background: transparent;
+                width: 150px;
+                font-size: 16px;
+                border: 1px solid #ccc;
+                height: 34px;
+            }
+            .styled {
+                margin: 10px;
+                width: 120px;
+                height: 34px;
+                border: 1px solid #111;
+                border-radius: 3px;
+                overflow: hidden;
+                background: url(http://www.stackoverflow.com/favicon.ico) 96% / 20% no-repeat #eee;
+            }
+
+            input[type=text] {
+                padding:5px; 
+                width: 30px;
+                margin: 3px;
+                border:2px solid #ccc; 
+                -webkit-border-radius: 5px;
+                border-radius: 5px;
+            }
+
+            input[type=text]:focus {
+                border-color:#333;
+            }
+
+            input[type=submit] {
+                padding:5px 15px; 
+                background:#ccc; 
+                border:0 none;
+                cursor:pointer;
+                -webkit-border-radius: 5px;
+                border-radius: 5px; 
+            }
+
+        </style>
+    </head>
+    <body translate="no" class="vsc-initialized">
+        <div class="Menu">
+            <ul class="Menu-list" data-offset="10">
+                <li class="Menu-list-item" data-offset="24" onclick>
+                Home
+                <span class="Mask"><span><a href="/scripts/osnovni.smscr">osnovni</a></span></span>
+                <span class="Mask"><span><a href="/scripts/osnovni.smscr">osnovni</a></span></span>
+                </li>
+                <li class="Menu-list-item" data-offset="16" onclick>
+                About
+                <span class="Mask"><span><a href="/scripts/brojPoziva.smscr">brojPoziva</a></span></span>
+                <span class="Mask"><span><a href="/scripts/brojPoziva.smscr">brojPoziva</a></span></span>
+                </li>
+                <li class="Menu-list-item" data-offset="12" onclick>
+                Work
+                <span class="Mask"><span><a href="/scripts/fibonaccih.smscr">fibonacci</a></span></span>
+                <span class="Mask"><span><a href="/scripts/fibonaccih.smscr">fibonacci</a></span></span>
+                </li>
+                
+                <li class="Menu-list-item" data-offset="8" onclick>
+                Contact
+                <span class="Mask"><span><a href="/ext/HelloWorker?name=Frano">HelloWorker</a></span></span>
+                <span class="Mask"><span><a href="/ext/HelloWorker?name=Frano">HelloWorker</a></span></span>
+                </li>
+            
+                <li class="Menu-list-item" data-offset="4" onclick>
+                Contact
+                <span class="Mask"><span><a href="/ext/CircleWorker">CircleWorker</a></span></span>
+                <span class="Mask"><span><a href="/ext/CircleWorker">CircleWorker</a></span></span>
+                </li>
+            
+            </ul>
+            <div  style="margin-top: 30px; text-align: center; background-color: {$= "#" "background" "" @tparamGet $}">
+                
+                <form action="/ext/SumWorker" >
+                    <h1 style="font-size: 12px;">Background color is only here!</h1>
+                    <h1>A:</h1> <input type="text" name="a">
+                    <h1>B:</h1> <input type="text" name="b">
+                    <br>
+                    <br>
+                    <input type="submit" value="Submit">
+                </form>
+                <br>
+                <h1>Select Background Color</h1>
+                <form action="/setbgcolor">
+                    <select name="bgcolor" class="styled">
+                        <option value="ecf0f1">White</option>
+                        <option value="e74c3c">Red</option>
+                        <option selected value="3498db">Blue</option>
+                        <option value="2ecc71">Green</option>
+                        <option value="f1c40f">Yellow</option>
+                        <option value="2ecc71">Emerald</option>
+                    </select>
+                    <input type="submit" value="Submit">
+                </form>
+            </div>
+        </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    </body>
+</html>

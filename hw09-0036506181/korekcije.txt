@@ -1,0 +1,195 @@
+######################################################################################
+####### Recenzent Kurilić, Jelena (1191236437) #######################################
+######################################################################################
+
+########################
+## Sadržaj recenzije: ##
+########################
+	Ova zadaca je ocjenjena s 1 jer ne zadovoljava minimalne uvijete: 3.zadataka - kad se raširi slika raspadne se u pogrešno složene trake.
+	
+	1.zadatak minimalni uvijet zadovoljen.
+	Mislim da nije trebalo napravit interface Vector3I i da Vector3 implemetira Vector3I. Mislim da tu nema potrebe za 
+	interfaceom.
+	Defaultni konstruktor u Complex je trebao bit public Complex() {this(0, 0);}, a ne public Complex() {this(1, 0);}
+	Ostalo ti je zakometirani kod.
+	Sadrži potreban javadoc.
+	
+	2.zadatak minimalni uvijet zadovoljen
+	Zadatak je koretno napisan, nemam primjedbi.
+	Sadrži potreban javadoc. Jedino si možda trebao ili sve na eng ili sve na hrv jer pišeš na eng i onda imaš PosaoIzracuna, rezultati itd.(vjerojatno slučajno ostalo).
+	
+	3.zadatak minmalni uvijet nije zadovljen: kad se raširi slika raspadne se u pogrešno složene trake.
+	Ne znam zašto si razred Job stavio u metodu produce.
+	Problem je u tome da prilikom povećanja prozora dolazi do promijena dimezija koje se tebi dobro ne registriraju, mislim da je bolje da stavis Job izvan metod kao statički razred (kao u primjeru s predavanja) i onda prilikom stvaranja novog posla pošaljes sve što se moglo promijeniti prilikom promijene prozora, a ne samo min i max granice. Mislim da bi tada radilo dobro.
+	RayCasterParallel2 trebao si koristit RayTracerViewer.createPredefinedScene2();, a ne RayTracerViewer.createPredefinedScene();
+	
+#######################
+## Što sam napravio: ##
+#######################
+	1.
+	Maknuo sam Vector3I, nema potrebe za njim, upravu si.
+	Popravio defaultni konstruktor.
+	Maknuo sam zakomentirani kod iz klase Complex.
+	
+	2.
+	Refaktorirao sam te nazive varijabli što sam našao da su na hrvatskom (PosaoIzracuna, posao, razultati)
+	
+	3.
+	Slika se više ne raspada, zaboravio sam odbaciti proračune pri susretu s cancel.get() == true, ali kada sam to dodao radi kako je očekivano.
+	U RayCasterParallel2 sam stavio RayTracerViewer.createPredefinedScene2() umjesto RayTracerViewer.createPredefinedScene()
+	
+######################################################################################
+####### Kurtović, Tomislav (0036509087) ##############################################
+######################################################################################
+
+########################
+## Sadržaj recenzije: ##
+########################
+	Ovoj zadaći dajem ocjenu 5 jer ima sve potrebne razrede te je sve napisano čitko i korektno. 
+	
+	1.Zadatak:
+	- možda bi bilo bolje da provjeravaš jesu li predani arugmenti null u metodama u Complex razredu
+	- redoslijed ispisa polinoma je obrnut od onoga u zadaći, nije neki problem, ali sam si napisao koji je očekivan
+	ispis, ali ispis nije u skladu s tvojim očekivanim iako je rezultat točan :)
+	- nitko mi nije odgovorio na pitanje što se tiče ispisa, ali ti radi 2. zadatak koji koristi razrede iz 1. pa
+	ne vidim razlog rušit ovu zadaću jer vidim da je sve napisano kak treba.
+	
+	2.Zadatak
+	-sve radi kako treba
+	-paralelizacija je odrađena korektno po uputi i sve je uredno i čitko napisano
+	
+	3.Zadatak
+	-RayCaster i RayCasterParallel su napisani dobro
+	-RayCasterParallel ne radi kako treba, jer su dvije kugle uvijek ispred ovih malih kuglica, što se ne smije
+	događati, vjerovatno jer dolazi do greške kod uspoređivanja brojeva.
+	Slika bi trebala biti da kad se rotira da su male kuglice ispred velikih i da se vidi sjena malih na velikima, a tebi su velike "u" malima. 
+	
+	Ispravak krivog navoda: skužio sam zašto ti nije dobro bilo i zato ti ne moram dati 1 sva sreća, nisi pozvao 
+	createPredefinedScene2(), već createPredefinedScene() samo. Ja sam to nadodao i sve je radilo kako treba :D
+	
+	Inače jako čitko napisano i sviđa mi se kako si koristio streamove i kako si rješio multiply metodu u ComplexPolynomial razredu :D
+	
+	Isplatilo se bit budan do 7 ujutro :)
+	
+##################################
+## Komentar i što sam napravio: ##
+##################################
+
+	Kolega nisi primjetio da mi se slika u RayCasterParallel raspadne kada se pokušava raširiti prozor - sve se linije isprepletu jer nisam provjeravao AtomicBoolean cancel. Time ubiti nisam bio zadovoljio minimalne uvjete. Skužio sam da si određeno vrijeme proveo s 3. zadatkom dok si skužio ovo s scenama jer nije mi taj kod bio osobito uredan, pa si vjerojatno tako nekako smetnuo provjeriti rastezanje prozora.
+	
+	1. zadatak
+	Dodao sam null chechove na mjesta gdje su falili.
+	Ostavio sam taj obrnuti redoslijed, skužio sam da je dobro ispisano pa ga nisam htio mjenjati.
+	
+	3. zadatak
+	Stavio sam da je createPredefinedScene2 (i naravno popravio ono što mi nije valjalo s razvlačenjem prozora).
+	
+	
+######################################################################################
+####### Lazarić, Marko (0036505387) ##################################################
+######################################################################################
+
+########################
+## Sadržaj recenzije: ##
+########################
+	Dao sam ti ocjenu 1 jer ti se RayCasterParallel raspada u trake kada mijenjaš širinu prozora. Sve ostalo si super riješio, odličan ti je javadoc i osim te greške dao bih ti ocjenu 5. 
+
+# 1. zadatak
+
+ * Super si implementirao logaritamsko potenciranje kompleksnih brojeva! 
+
+ * Mogao si dodati null checkove u konstruktorima i metodama, ali i ovo je okej. 
+
+ * Fora korištenje streamova u ComplexRootedPolynomial.toString, no bilo bi bolje koristiti StringBuilder, ali s obzirom na to da nismo radili s nekim velikim polinomima, i ovo je super. 
+
+ * Nisam siguran što si htio napraviti s Vector3I. Ne moraš pisati public kada definiraš metode u sučelju. 
+
+ * ComplexPolynomial ti ispisuje članove u obrnutom poretku (u PDF-u su od najveće potencije prema najmanjoj, a tebi su od najmanje prema najvećoj), ali ispravan ti je ispis. 
+
+
+# 2. zadatak
+
+ * Mislim da ti je ovako trebao glasiti dependency:
+
+	<dependency>
+	    <groupId>hr.fer.zemris.java.fractals</groupId>
+	    <artifactId>fractal-viewer</artifactId>
+	    <version>1.0</version>
+	</dependency>
+
+ * 64 je magični broj, bilo bi ga bolje pretvoriti u konstantu ili atribut. 
+
+ * Kada se mijenja veličina prozora, program javlja poruku "Dobio sam rezultat koji zanemarujem jer je prestar...". To si mogao izbjeći provjerom cancel varijable prije observer.acceptResult, jer ako je zahtjev otkazan, nema potrebe poslati ga observeru. 
+
+
+# 3. zadatak
+
+ * Mislim da ti je ovako trebao glasiti dependency:
+
+    <dependency>
+	    <groupId>hr.fer.zemris.java.raytracer</groupId>
+	    <artifactId>raytracer</artifactId>
+	    <version>1.0</version>
+	</dependency>
+
+ * Mogao si koristiti Ray.fromPoints(startPoint, endPoint) npr. u tracer metodi.
+ 
+ * Mogao si napraviti nekoliko pomoćnih varijabli, npr. r i v. Zašto tu koristiš Ray, a ne direktno Point3D? 
+
+			// add reflective components Is = Ii · ks · (^r · ^v)^n
+			// je li okej ovako dug komad napisat?
+			Ray reflectedRay = new Ray(s.getPoint(),
+					rayFromLightSource.direction
+							.sub(s.getNormal().normalize().scalarMultiply(2).scalarMultiply(
+									rayFromLightSource.direction.scalarProduct(s.getNormal().normalize())))
+							.normalize());
+
+
+ * Ima li potrebe duplicirati metode tracer i findClosestIntersection? 
+
+ * Ima li razlike između metode produce za RayCasterParallel i za RayCasterParallel2? Jesi li mogao to napisati tako da im predaš scenu, a sve ostalo je jednako? Fora korištenje lokalnih klasa. 
+
+ * RayCasterParallel ti se raspada kada mijenjaš širinu prozora: https://imgur.com/a/9oOZYly
+
+					private void computeDirect() {
+						short[] rgb = new short[3];
+						int offset = yMin * width;
+						for (int y = yMin; y <= yMax; y++) {
+							for (int x = 0; x < width; x++) {
+								if (cancel.get()) return; // <------- ovo ti fali u RayCasterParallel
+								
+								Point3D screenPoint = screenCorner
+										.add(xAxis.scalarMultiply(horizontal * (x / (double) (width - 1))))
+										.sub(yAxis.scalarMultiply(vertical * (y / (double) (height - 1))));
+								Ray ray = Ray.fromPoints(eye, screenPoint);
+								tracer(scene, ray, rgb);
+								red[offset] = rgb[0] > 255 ? 255 : rgb[0];
+								green[offset] = rgb[1] > 255 ? 255 : rgb[1];
+								blue[offset] = rgb[2] > 255 ? 255 : rgb[2];
+								offset++;
+							}
+						}
+					}
+					
+					
+					
+########################################
+## Što sam ispravio i moji komentari: ##
+########################################
+	1. zadatak
+	- Vector3I sam maknuo, nepotreban je
+	- dodao sam null checkove na potrebna mjesta
+	- ostavio sam obrnuti redoslijed (jer točan je ispis..)
+	
+	2. zadatak
+	- 64 nije više magičan broj
+	- dependency sam sredio u mavenu
+	- observeru više ne šaljem zastarjele rezultate..
+	
+	3. zadatak
+	- hvala ti što si našao vrijeme za pronaći pogrešku - popravio sam sada to s cancel-om
+	- popravio sam dependency
+	- detalje s korištenjem Point3D umjesto Ray-a nisam popravljao - iako nije najljepše napisano, matematika iza toga radi
+	- RayCasterParallel i RayCasterParallel2 sada koriste jednu produce metodu i to sam stavio da pozivaju onu iz RayCasterParallel. Nije naravno bilo razlike između njih dviju i nije bilo potrebe za ponavljanjem svog tog koda u obje klase.
+
+######################################################################################

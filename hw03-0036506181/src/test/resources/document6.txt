@@ -1,0 +1,7 @@
+{$= "plain/text" @setMimeType $}This is sample text.
+{$FOR i 1 10 1 $}
+This is {$= t$}-th time this message was generated.
+{$end$}
+{$FOR i 1 10 1 $}
+sin({$=i$}^2) = {$= i i * @sin "0.000" @decfmt $}
+{$end$}

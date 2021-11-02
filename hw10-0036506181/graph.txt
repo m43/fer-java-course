@@ -1,0 +1,13 @@
+﻿Number of people in the car
+Frequency
+1,3 10,20 3000,22 40,10 50000000,4
+0
+22
+2
+MOJE
+BILJEŠKE 
+SU
+OVDJE
+1
+12
+123

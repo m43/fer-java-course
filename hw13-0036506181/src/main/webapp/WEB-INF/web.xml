@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+		 http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+	version="3.1" metadata-complete="false">
+
+	<display-name>hw13</display-name>
+	<description>
+	   13. domaća zadaća.
+		Frano Rajič 0036506181
+	</description>
+
+	<servlet>
+		<servlet-name>setcolor</servlet-name>
+		<servlet-class>hr.fer.zemris.java.webserver.servlets.SetColor</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>setcolor</servlet-name>
+		<url-pattern>/setcolor</url-pattern>
+	</servlet-mapping>
+
+
+</web-app>
